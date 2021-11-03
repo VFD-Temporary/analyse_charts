@@ -1,0 +1,9 @@
+Django==3.1.12
+djongo
+pymongo[srv]
+djangorestframework
+requests
+pandas
+django-cors-headers
+django-rest-framework-mongoengine
+
