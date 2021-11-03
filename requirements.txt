@@ -6,4 +6,4 @@ requests
 pandas
 django-cors-headers
 django-rest-framework-mongoengine
-
+PyJWT==2.2.0
