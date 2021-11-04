@@ -25,6 +25,17 @@ class StructureResponse:
         date_vals = structured_values["profitAndLoss"]["months"]
 
         return monthly_tot_sales, date_vals
+    
+    def sales_response_formatted(self, sales_monthly_response, date_values):
+        sales_response = []
+
+        for (sales, date) in zip(sales_monthly_response, date_values):
+            response = dict()
+            response["date"] = date
+            response["value"] = sales
+            sales_response.append(response)
+
+        return sales_response
 
     def get_category_monthly_values(self, company_id, user_id, total_sales_monthly, date_values, category_name,
                                     operation_type):
@@ -46,17 +57,6 @@ class StructureResponse:
         for (value, total_sales) in zip(monthly_values, sales_monthly_values):
             percentage_values.append((value/total_sales) * 100)
         return percentage_values
-
-    def sales_response_formatted(self, sales_monthly_response, date_values):
-        sales_response = []
-
-        for (sales, date) in zip(sales_monthly_response, date_values):
-            response = dict()
-            response["date"] = date
-            response["value"] = sales
-            sales_response.append(response)
-
-        return sales_response
 
     def create_listOf_dictionaries(self, monthly_values, percentage_values, date_values):
 
