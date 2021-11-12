@@ -81,19 +81,19 @@ WSGI_APPLICATION = 'profitandloss.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-username = urllib.parse.quote_plus('qokoon-service-user')
-password = urllib.parse.quote_plus('xnouFLG1tNg0YqMN')
-# dev cluster for gcp
-url = "mongodb+srv://{}:{}@cluster0-pri.ntku3.mongodb.net/Cluster0%3FretryWrites=true%26w=majority%26ssl=true%26ssl_cert_reqs=CERT_NONE%26useUnifiedTopology=true".format(username, password)
+# username = urllib.parse.quote_plus('qokoon-service-user')
+# password = urllib.parse.quote_plus('xnouFLG1tNg0YqMN')
+# # dev cluster for gcp
+# url = "mongodb+srv://{}:{}@cluster0-pri.ntku3.mongodb.net/Cluster0%3FretryWrites=true%26w=majority%26ssl=true%26ssl_cert_reqs=CERT_NONE%26useUnifiedTopology=true".format(username, password)
 
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'companies',
         'CLIENT': {
-            #'host': os.environ.get('MONGO_CONNECTION_STRING'),
+            'host': os.environ.get('MONGO_CONNECTION_STRING'),
             #'host': 'mongodb://localhost:27017',
-            'host': url
+            #'host': url
         },
     }
 }

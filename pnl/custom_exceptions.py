@@ -40,3 +40,6 @@ class DurationIndexFetchError(Exception):
 class ResponseStructuringError(Exception):
     """To be raised if the incoming request does not have the login session details"""
     pass
+
+class DateTypeCastingError(Exception):
+    pass
