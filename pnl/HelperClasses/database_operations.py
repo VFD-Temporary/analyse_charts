@@ -59,3 +59,22 @@ class DatabaseOperations:
             return None
         except Exception as e:
             raise DatabaseLookupError("Error occured while trying to fetch values from the database. ", str(e))
+
+
+    def get_financial_year_start_month(self, companyID, userID):
+        """Returns the financial start month (str) corresponding to the comapny ID"""
+        try:
+            meta_field = self.fetch_from_mongodb(companyID, userID, "meta")
+            month_data = meta_field["financialYearStartMonth"]
+            # formatting the month data
+            if month_data>=10:
+                month_data = str(month_data)
+            else:
+                month_data = "0"+str(month_data)
+            return month_data
+        except:
+            # the company doesn't have this column; database structuring problem, not an error
+            # assume the start month to be January
+            raise Exception("The company doesn't have a 'financialYearStartMonth' field")
+            #print("the company doesn't have a start of year field")
+            #return "01"
