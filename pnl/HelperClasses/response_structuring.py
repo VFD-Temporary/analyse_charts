@@ -1,4 +1,5 @@
 from .database_operations import DatabaseOperations
+from .categories_subcategories_constants import Constants
 import numpy as np
 
 
@@ -16,7 +17,7 @@ class StructureResponse:
     def get_sales_evolution_monthly(self, company_id, user_id, end_index, operation_type):
         database_helper = DatabaseOperations()
         structured_values = database_helper.fetch_from_mongodb(company_id, user_id, "data")
-        total_sales_index = fetch_category_index("TOTAL_SALES", "categories", structured_values)
+        total_sales_index = fetch_category_index(Constants.TOTAL_SALES, "categories", structured_values)
         subcategory_list = []
         for key in structured_values["profitAndLoss"]["categories"][total_sales_index]["subCategories"]:
             subcategory_list.append(key["values"])
@@ -102,7 +103,7 @@ class StructureResponse:
     def get_sales_evolution_ytd(self, comp_ID, user_id, end_index, operation_type):
         database_helper = DatabaseOperations()
         structured_values = database_helper.fetch_from_mongodb(comp_ID, user_id, "data")
-        total_sales_index = fetch_category_index("TOTAL_SALES", "categories", structured_values)
+        total_sales_index = fetch_category_index(Constants.TOTAL_SALES, "categories", structured_values)
         ltm = 12
         subcategory_list = []
         for key in structured_values["profitAndLoss"]["categories"][total_sales_index]["subCategories"]:
