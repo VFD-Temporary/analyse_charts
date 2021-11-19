@@ -109,33 +109,21 @@ class StructureResponse:
             subcategory_list.append(key["values"])
 
         monthly_tot_sales = [sum(i) for i in zip(*subcategory_list)]
-        print("length is :",len(monthly_tot_sales)," End_index", end_index)
         summed_monthly_total_sales = np.zeros(end_index-ltm + 1)
         for i in range(len(monthly_tot_sales)):
-            print(i,"ltm", i+ltm)
-            print("len(summed_monthly_total_sales) - i",  len(summed_monthly_total_sales) - i )
             if (len(summed_monthly_total_sales) - i) == 0:
-                print("Here")
                 break
-            print(i, "sum is ", sum(monthly_tot_sales[i:i+ltm]) )
             summed_monthly_total_sales[i] = sum(monthly_tot_sales[i:i+ltm])
 
         summed_monthly_total_sales = [int(x) for x in summed_monthly_total_sales]
         date_vals = structured_values["profitAndLoss"]["months"]
         date_vals_ytd = date_vals[ltm-1:end_index]
-        print("*************")
-        print(monthly_tot_sales, "----monthly value length is----", len(monthly_tot_sales))
-        print("*************")
-        print(summed_monthly_total_sales, "----ytd value length is----", len(summed_monthly_total_sales))
-        print("*************")
-        print(date_vals_ytd,"----length is----", len(date_vals_ytd))
         return summed_monthly_total_sales, date_vals_ytd
 
     def get_derived_category_ltm_formatted(self, monthly_value, end_index, sales_ltm_response, dates_ltm_response):
         ltm = 12
         summed_monthly_total_subcategory = np.zeros(end_index-ltm + 1)
         for i in range(len(monthly_value)):
-            print(i ,"ltm", ltm + i)
             if (len(monthly_value) - (i+ltm) + 1) == 0:
                 break
             summed_monthly_total_subcategory[i] = sum(monthly_value[i:i+ltm])
@@ -147,8 +135,8 @@ class StructureResponse:
 
         return self.create_listOf_dictionaries(summed_monthly_total_subcategory, percentage_values, dates_ltm_response)
 
-    def get_category_ltm_values(self, company_id, user_id, total_sales_ltm, date_values, end_index, category_name,
-                                    operation_type):
+    def get_category_ltm_values(self, company_id, user_id, total_sales_ltm, date_values, end_index, category_name, operation_type
+                                    ):
         database_helper = DatabaseOperations()
         structured_values = database_helper.fetch_from_mongodb(company_id, user_id, "data")
         index = fetch_category_index(category_name, "categories", structured_values)
@@ -160,12 +148,8 @@ class StructureResponse:
         sum_of_values = [sum(i) for i in zip(*subcategory_list)]
         summed_monthly_category_total = np.zeros(end_index-ltm + 1)
         for i in range(len(sum_of_values)):
-            print(i,"ltm", i+ltm)
-            print("len(summed_monthly_total_sales) - i",  len(summed_monthly_category_total) - i )
             if (len(summed_monthly_category_total) - i) == 0:
-                print("Here")
                 break
-            print(i, "sum is ", sum(sum_of_values[i:i+ltm]) )
             summed_monthly_category_total[i] = sum(sum_of_values[i:i+ltm])
 
         summed_monthly_category_total = [int(x) for x in summed_monthly_category_total]
